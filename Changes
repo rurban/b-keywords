@@ -69,3 +69,5 @@ Revision history for Perl extension B::Keywords.
   - Moved exp from @Barewords to @Functions
   - Added $^CHILD_ERROR_NATIVE $^GLOBAL_PHASE $^LAST_FH $^MATCH $^PREMATCH
     $^POSTMATCH $^UTF8CACHE $^WIN32_SLOPPY_STAT to @Scalars
+  - Added English names for %!, @F (perlrun) and @ARG for @_ (Zsbán Ambrus)
+  - Added %+ %- (Zsbán Ambrus) and $LAST_SUBMATCH_RESULT
