@@ -19,7 +19,7 @@ sub _map_control_char {
     return $char;
 }
 
-# Test everything in keywords.h is covered.
+diag "Test everything in keywords.h is covered.";
 {
     my $keywords = File::Spec->catfile( $Config{archlibexp}, 'CORE', 'keywords.h' );
     open FH, "< $keywords\0" or die "Can't open $keywords: $!";
@@ -35,7 +35,7 @@ sub _map_control_char {
 }
 
 
-# Test all the single character globals in main
+diag "Test all the single character globals in main";
 {
     my @globals = map  { _map_control_char($_) }
                   grep { length $_ == 1 and /\W/ }

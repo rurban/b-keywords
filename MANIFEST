@@ -9,3 +9,4 @@ t/10basic.t
 t/11keywords.t
 t/export.t
 META.json                                Module JSON meta-data (added by MakeMaker)
+SIGNATURE                                Public-key signature (added by MakeMaker)

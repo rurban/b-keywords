@@ -13,7 +13,7 @@ use vars qw( @EXPORT_OK %EXPORT_TAGS );
 %EXPORT_TAGS = ( 'all' => \@EXPORT_OK );
 
 use vars '$VERSION';
-$VERSION = '1.11';
+$VERSION = '1.12';
 
 use vars '@Scalars';
 @Scalars = (
@@ -157,6 +157,7 @@ use vars '@Functions';
     exec
     exists
     exit
+    fc
     fcntl
     fileno
     flock
