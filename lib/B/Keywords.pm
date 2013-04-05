@@ -52,18 +52,23 @@ use vars '@Scalars';
         $]
         $^A $ACCUMULATOR
         $^C $COMPILING
+        $^CHILD_ERROR_NATIVE
         $^D $DEBUGGING
         $^E $EXTENDED_OS_ERROR
         $^ENCODING
         $^F $SYSTEM_FD_MAX
+        $^GLOBAL_PHASE
         $^H
         $^I $INPLACE_EDIT
         $^L $FORMAT_FORMFEED
+        $^LAST_FH
         $^M
+        $^MATCH
         $^N
         $^O $OSNAME
         $^OPEN
         $^P $PERLDB
+        $^PREMATCH $^POSTMATCH
         $^R $LAST_REGEXP_CODE_RESULT
         $^RE_DEBUG_FLAGS
         $^RE_TRIE_MAXBUF
@@ -71,10 +76,12 @@ use vars '@Scalars';
         $^T $BASETIME
         $^TAINT
         $^UNICODE
+        $^UTF8CACHE
         $^UTF8LOCALE
         $^V $PERL_VERSION
         $^W $WARNING $^WARNING_BITS
         $^WIDE_SYSTEM_CALLS
+        $^WIN32_SLOPPY_STAT
         $^X $EXECUTABLE_NAME
         $ARGV
         ),

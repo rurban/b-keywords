@@ -67,3 +67,5 @@ Revision history for Perl extension B::Keywords.
     heavy_export_ok_tags heavy_export_tags heavy_export_to_level
     heavy_require_version require_version  to @ExporterSymbols (Zsbán Ambrus)
   - Moved exp from @Barewords to @Functions
+  - Added $^CHILD_ERROR_NATIVE $^GLOBAL_PHASE $^LAST_FH $^MATCH $^PREMATCH
+    $^POSTMATCH $^UTF8CACHE $^WIN32_SLOPPY_STAT to @Scalars
