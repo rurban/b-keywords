@@ -66,3 +66,4 @@ Revision history for Perl extension B::Keywords.
     export_fail_in export_ok_tags export_tags export_to_level heavy_export
     heavy_export_ok_tags heavy_export_tags heavy_export_to_level
     heavy_require_version require_version  to @ExporterSymbols (Zsbán Ambrus)
+  - Moved exp from @Barewords to @Functions

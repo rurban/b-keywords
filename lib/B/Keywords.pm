@@ -160,6 +160,7 @@ use vars '@Functions';
     exec
     exists
     exit
+    exp
     fc
     fcntl
     fileno
@@ -358,7 +359,6 @@ use vars '@Barewords';
     elsif
     eq
     err
-    exp
     for
     foreach
     ge
