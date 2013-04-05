@@ -13,7 +13,7 @@ use vars qw( @EXPORT_OK %EXPORT_TAGS );
 %EXPORT_TAGS = ( 'all' => \@EXPORT_OK );
 
 use vars '$VERSION';
-$VERSION = '1.09';
+$VERSION = '1.10';
 
 use vars '@Scalars';
 @Scalars = (
@@ -398,7 +398,7 @@ B::Keywords - Lists of reserved barewords and symbol names
 
 =head1 SYNOPSIS
 
-  use B::Keywords qw( @Symbols Barewords );
+  use B::Keywords qw( @Symbols @Barewords );
   print join "\n", @Symbols,
                    @Barewords;
 
