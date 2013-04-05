@@ -13,7 +13,7 @@ use vars qw( @EXPORT_OK %EXPORT_TAGS );
 %EXPORT_TAGS = ( 'all' => \@EXPORT_OK );
 
 use vars '$VERSION';
-$VERSION = '1.12';
+$VERSION = '1.13';
 
 use vars '@Scalars';
 @Scalars = (
@@ -452,10 +452,8 @@ everything.
 
 =head1 SEE ALSO
 
-keywords.pl from the perl source, L<perlvar>, L<perlfunc>,
+F<regen/keywords.pl> from the perl source, L<perlvar>, L<perlfunc>,
 L<perldelta>.
-
-
 
 =head1 BUGS
 
@@ -511,8 +509,12 @@ b) the "Artistic License" which comes with Perl.
 
 =head1 SOURCE AVAILABILITY
 
-This source is in Github: L<git://github.com/jbenjore/b-keywords.git>
+This source is in Github: L<git://github.com/rurban/b-keywords.git>
 
 =head1 AUTHOR
 
 Joshua ben Jore <jjore@cpan.org>
+
+=head1 MAINTAINER
+
+Reini Urban <rurban@cpan.org>

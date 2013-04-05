@@ -3,9 +3,41 @@
 
 use ExtUtils::MakeMaker;
 WriteMakefile(
-    'NAME'          => 'B::Keywords',
-    'VERSION_FROM'  => 'lib/B/Keywords.pm',
-    'ABSTRACT_FROM' => 'lib/B/Keywords.pm',
-    'AUTHOR'        => 'Joshua ben Jore <jjore@cpan.org>',
-    'SIGN'          => 1,
-);
+  'NAME'          => 'B::Keywords',
+  'VERSION_FROM'  => 'lib/B/Keywords.pm',
+  'ABSTRACT_FROM' => 'lib/B/Keywords.pm',
+  'AUTHOR'        => 'Joshua ben Jore <jjore@cpan.org>',
+  'SIGN'          => 1,
+  'PREREQ_PM'	  =>
+   {
+     'B'                  => 0,
+   },
+  depend            => { 'README'   => 'lib/B/Keywords.pm' },
+  ($ExtUtils::MakeMaker::VERSION gt '6.46' ?
+   ('META_MERGE'  =>
+    {
+      resources =>
+      {
+	repository  => 'http://github.com/rurban/b-keywords',
+	license     => 'http://dev.perl.org/licenses/',
+      },
+    }
+   ) : ()),
+  );
+
+package MY;
+use Config;
+
+sub depend {
+  "
+README : \$(VERSION_FROM)
+	pod2text \$(VERSION_FROM) > README
+
+release : dist
+	git commit -a -m\"release \$(VERSION)\"
+	git tag \$(VERSION)
+	cpan-upload \$(DISTVNAME).tar\$(SUFFIX)
+	git push
+	git push --tags
+"
+}
