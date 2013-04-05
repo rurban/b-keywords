@@ -9,7 +9,8 @@ require Exporter;
 
 use vars qw( @EXPORT_OK %EXPORT_TAGS );
 @EXPORT_OK = qw( @Scalars @Arrays @Hashes @Filehandles @Symbols
-                 @Functions @Barewords );
+                 @Functions @Barewords @TieIOMethods @UNIVERSALMethods
+                 @ExporterSymbols );
 %EXPORT_TAGS = ( 'all' => \@EXPORT_OK );
 
 use vars '$VERSION';
@@ -101,7 +102,9 @@ use vars '@Hashes';
 use vars '@Filehandles';
 @Filehandles = qw(
     *ARGV ARGV
+    *_ _
     ARGVOUT
+    DATA
     STDIN
     STDOUT
     STDERR
@@ -197,6 +200,7 @@ use vars '@Functions';
     hex
     index
     int
+    import
     ioctl
     join
     keys
@@ -308,6 +312,7 @@ use vars '@Functions';
     umask
     undef
     unlink
+    unimport
     unpack
     unshift
     untie
@@ -385,6 +390,29 @@ use vars '@Barewords';
     y
 );
 
+use vars '@TieIOMethods';
+@TieIOMethods = qw(
+    BINMODE CLEAR CLEARERR CLONE CLONE_SKIP CLOSE DELETE EOF
+    ERROR EXISTS EXTEND FDOPEN FETCH FETCHSIZE FILENO FILL FIRSTKEY FLUSH
+    GETC NEXTKEY OPEN POP POPPED PRINT PRINTF PUSH PUSHED READ READLINE
+    SCALAR SEEK SETLINEBUF SHIFT SPLICE STORE STORESIZE SYSOPEN TELL
+    TIEARRAY TIEHANDLE TIEHASH TIESCALAR UNREAD UNSHIFT UNTIE UTF8 WRITE
+);
+
+use vars '@UNIVERSALMethods';
+@UNIVERSALMethods = qw(
+    can isa DOES VERSION
+);
+
+use vars '@ExporterSymbols';
+@ExporterSymbols = qw(
+    @EXPORT @EXPORT_OK @EXPORT_FAIL
+    @EXPORT_TAGS _push_tags _rebuild_cache as_heavy export export_fail
+    export_fail_in export_ok_tags export_tags export_to_level heavy_export
+    heavy_export_ok_tags heavy_export_tags heavy_export_to_level
+    heavy_require_version require_version
+);
+
 use vars '@Symbols';
 @Symbols = ( @Scalars, @Arrays, @Hashes, @Filehandles, @Functions );
 
@@ -394,6 +422,8 @@ BEGIN { $^W = 0 }
 "You know, when you stop and think about it, Cthulhu is a bit a Mary Sue isn't he?"
 
 __END__
+
+=encoding UTF-8
 
 =head1 NAME
 
@@ -407,14 +437,24 @@ B::Keywords - Lists of reserved barewords and symbol names
 
 =head1 DESCRIPTION
 
-C<B::Keywords> supplies seven arrays of keywords: C<@Scalars>,
-C<@Arrays>, C<@Hashes>, C<@Filehandles>, C<@Symbols>, C<@Functions>,
-and C<@Barewords>. The C<@Symbols> array includes the contents of each
+C<B::Keywords> supplies several arrays of exportable keywords:
+C<@Scalars>, C<@Arrays>, C<@Hashes>, C<@Filehandles>, C<@Symbols>,
+C<@Functions>, C<@Barewords>, C<@TieIOMethods>, C<@UNIVERSALMethods>
+and C<@ExporterSymbols>.
+
+The C<@Symbols> array includes the contents of each
 of C<@Scalars>, C<@Arrays>, C<@Hashes>, C<@Functions> and C<@Filehandles>.
+
 Similarly, C<@Barewords> adds a few non-function keywords and
 operators to the C<@Functions> array.
 
 All additions and modifications are welcome.
+
+The perl parser uses a static list of keywords from
+F<regen/keywords.pl> which constitutes the strict list of keywords
+@Functions and @Barewords, though some @Functions are not functions
+in the strict sense.
+Several library functions use more special symbols, handles and methods.
 
 =head1 DATA
 
@@ -442,6 +482,21 @@ handles, and functions.
 
 This is a list of other special keywords in perl including operators
 and all the control structures.
+
+=item C<@TieIOMethods>
+
+Those are special tie or PerlIO methods called by the perl core,
+namely for tieing or PerlIO::via (or both of those) or threads.
+
+=item C<@UNIVERSALMethods>
+
+Methods defined by the core package UNIVERSAL.
+
+=item C<@ExporterSymbols>
+
+Variables or functions used by Exporter (some internal), which is
+almost as good as being keywords, for you mustn't use them for any
+other purpose in any package that isa Exporter, which is quite common.
 
 =back
 
@@ -493,7 +548,8 @@ L<http://search.cpan.org/dist/B-Keywords>
 
 =head1 ACKNOWLEDGEMENTS
 
-Michael G Schwern for patches
+Michael G Schwern, Reini Urban, Florian Ragwitz and Zsbán Ambrus
+for patches and releases.
 
 =head1 COPYRIGHT AND LICENSE
 
