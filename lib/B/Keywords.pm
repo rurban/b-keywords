@@ -64,7 +64,7 @@ use vars '@Scalars';
         $^LAST_FH
         $^M
         $^MATCH
-        $^N
+        $^N $LAST_SUBMATCH_RESULT
         $^O $OSNAME
         $^OPEN
         $^P $PERLDB
@@ -99,6 +99,8 @@ use vars '@Arrays';
 use vars '@Hashes';
 @Hashes = qw(
     %OVERLOAD
+    %+ %LAST_MATCH_END
+    %- %LAST_MATCH_START
     %!
     %^H
     %INC
