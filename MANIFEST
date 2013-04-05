@@ -7,3 +7,5 @@ META.yml
 README
 t/10basic.t
 t/11keywords.t
+t/export.t
+META.json                                Module JSON meta-data (added by MakeMaker)

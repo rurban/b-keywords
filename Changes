@@ -45,3 +45,5 @@ Revision history for Perl extension B::Keywords.
   - bb14cdd3b3e5223fbb904cfbbe87fbcb5f6d8db2 Fix use B::Keywords qw(:all);
 1.10
   - Fix typo in SYNOPSIS
+1.11
+  - Add new keywords for 5.16, __SUB__ and evalbytes.
