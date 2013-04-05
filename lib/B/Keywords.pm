@@ -92,8 +92,9 @@ use vars '@Arrays';
     @+ $LAST_MATCH_END
     @- @LAST_MATCH_START
     @ARGV
+    @F
     @INC
-    @_
+    @_ @ARG
 );
 
 use vars '@Hashes';
@@ -101,7 +102,7 @@ use vars '@Hashes';
     %OVERLOAD
     %+ %LAST_MATCH_END
     %- %LAST_MATCH_START
-    %!
+    %! %OS_ERROR %ERRNO
     %^H
     %INC
     %ENV
