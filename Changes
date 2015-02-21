@@ -71,3 +71,5 @@ Revision history for Perl extension B::Keywords.
     $^POSTMATCH $^UTF8CACHE $^WIN32_SLOPPY_STAT to @Scalars
   - Added English names for %!, @F (perlrun) and @ARG for @_ (Zsbán Ambrus)
   - Added %+ %- (Zsbán Ambrus) and $LAST_SUBMATCH_RESULT
+1.14 rurban
+  - removed err from Barewords, RT #102259 (Alex Efros a.k.a. Powerman)

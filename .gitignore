@@ -2,6 +2,7 @@ B-Keywords-*.tar.gz
 Debian_CPANTS.txt
 MYMETA.json
 MYMETA.yml
+/META.yml
 Makefile
 blib/
 /pm_to_blib
