@@ -47,10 +47,10 @@ Revision history for Perl extension B::Keywords.
   - Fix typo in SYNOPSIS
 1.11 rafl
   - Add new keywords for 5.16, __SUB__ and evalbytes.
-1.12 rurban
+1.12 Fri Apr 5 2013 rurban
   - Add new keyword fc (Unicode casefolding) for 5.16 added with commit 838f2281
   - added diag before each big t/11keywords.t loop
-1.13 rurban
+1.13 Fri Apr 5 2013 rurban
   - removed diag before each big t/11keywords.t loop
   - added suggested keywords from RT #62382: 
      *_ and DATA to @FileHandles (the deprecated lowercase: stdin, stdout, stderr not),
@@ -71,5 +71,9 @@ Revision history for Perl extension B::Keywords.
     $^POSTMATCH $^UTF8CACHE $^WIN32_SLOPPY_STAT to @Scalars
   - Added English names for %!, @F (perlrun) and @ARG for @_ (Zsbán Ambrus)
   - Added %+ %- (Zsbán Ambrus) and $LAST_SUBMATCH_RESULT
-1.14 rurban
+1.14 Sat Feb 21 2015 rurban
   - removed err from Barewords, RT #102259 (Alex Efros a.k.a. Powerman)
+1.15 Wed Nov 11 2015 rurban
+  - Fixed $OUTPUT_AUTOFLUSH, RT #108572 (Defragmented Reality)
+  - Made $* $MULTILINE_MATCHING version specific, deprecated with 5.8.1,
+    removed with 5.10

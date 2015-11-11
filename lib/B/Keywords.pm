@@ -14,7 +14,7 @@ use vars qw( @EXPORT_OK %EXPORT_TAGS );
 %EXPORT_TAGS = ( 'all' => \@EXPORT_OK );
 
 use vars '$VERSION';
-$VERSION = '1.14';
+$VERSION = '1.15';
 
 use vars '@Scalars';
 @Scalars = (
@@ -24,15 +24,16 @@ use vars '@Scalars';
         $& $MATCH
         $` $PREMATCH
         $' $POSTMATCH
-        $+ $LAST_PAREN_MATCH
-        $* $MULTILINE_MATCHING
-        $. $INPUT_LINE_NUMBER $NR
+        $+ $LAST_PAREN_MATCH ),
+    ($] < 5.008001 ?
+    qw( $* $MULTILINE_MATCHING) : ()),
+    qw( $. $INPUT_LINE_NUMBER $NR
         $/ $INPUT_RECORD_SEPARATOR $RS
-        $| $OUTPUT_AUTO_FLUSH ), '$,', qw( $OUTPUT_FIELD_SEPARATOR $OFS
+        $| $OUTPUT_AUTOFLUSH ), '$,', qw( $OUTPUT_FIELD_SEPARATOR $OFS
         $\ $OUTPUT_RECORD_SEPARATOR $ORS
         $" $LIST_SEPARATOR
         $; $SUBSCRIPT_SEPARATOR $SUBSEP
-        ), '$#', qw( $OFMT
+    ), '$#', qw( $OFMT
         $% $FORMAT_PAGE_NUMBER
         $= $FORMAT_LINES_PER_PAGE
         $- $FORMAT_LINES_LEFT
@@ -44,9 +45,9 @@ use vars '@Scalars';
         $@ $EVAL_ERROR
         $$ $PROCESS_ID $PID
         $< $REAL_USER_ID $UID
-        $> $EFFECTIVE_USER_ID $EUID ), '$(', qw( $REAL_GROUP_ID $GID ), '$)',
-    qw(
-        $EFFECTIVE_GROUP_ID $EGID
+        $> $EFFECTIVE_USER_ID $EUID ), 
+       '$(', qw( $REAL_GROUP_ID $GID ), 
+       '$)', qw( $EFFECTIVE_GROUP_ID $EGID
         $0 $PROGRAM_NAME
         $[
         $]
@@ -563,6 +564,7 @@ for patches and releases.
 =head1 COPYRIGHT AND LICENSE
 
 Copyright 2009 Joshua ben Jore, All rights reserved.
+Copyright 2013, 2015 Reini Urban, All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of either:
