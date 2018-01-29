@@ -14,7 +14,7 @@ use vars qw( @EXPORT_OK %EXPORT_TAGS );
 %EXPORT_TAGS = ( 'all' => \@EXPORT_OK );
 
 use vars '$VERSION';
-$VERSION = '1.17';
+$VERSION = '1.18';
 my $CPERL = $^V =~ /c$/ ? 1 : 0;
 
 use vars '@Scalars';
@@ -148,7 +148,7 @@ use vars '@Functions';
     bind
     binmode
     bless ),
-  ($] >= 5.009003 && ($] < 5.027007 || $CPERL) ? qw(
+  ($] >= 5.009003 && ($] < 5.027007 || $] >= 5.027008 || $CPERL) ? qw(
     break
   ) : ()), qw(
     caller
