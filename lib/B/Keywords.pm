@@ -451,6 +451,11 @@ use vars '@Barewords';
     x
     xor
     y
+  ),
+  ($] >= 5.033007 ? qw(
+    try
+    catch
+  ) : ()
 ));
 
 use vars '@TieIOMethods';
