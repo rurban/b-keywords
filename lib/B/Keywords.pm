@@ -453,10 +453,15 @@ use vars '@Barewords';
     y
   ),
   ($] >= 5.033007 ? qw(
-    try
-    catch
-  ) : ()
-));
+      try
+      catch
+    ) : ()
+  ),
+  ($] >= 5.035004 ? qw(
+      defer
+    ) : ()
+  ),
+);
 
 use vars '@TieIOMethods';
 @TieIOMethods = qw(
