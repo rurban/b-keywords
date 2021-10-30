@@ -8,6 +8,12 @@ use File::Spec;
 use lib qw( ../lib lib );
 use B::Keywords ':all';
 
+BEGIN {
+  if (defined &Test::More::note) {
+    *diag = *Test::More::note;
+  }
+}
+
 # Translate control characters into ^A format
 # Leave others alone.
 my @control_map = (undef, "A".."Z");
@@ -29,7 +35,7 @@ sub _map_control_char {
     my $usedevel = $Config{usedevel};
 
     my %covered = map { $_ => 1 } @Symbols, @Barewords;
-    note "check if all keywords.h have \@Symbols or \@Barewords";
+    diag "check if all keywords.h have \@Symbols or \@Barewords";
   TODO: {
       for my $keyword (@keywords) {
           local $TODO = "old blead version, wait for the release" if $Config{usedevel} && !$covered{$keyword};
@@ -37,12 +43,12 @@ sub _map_control_char {
       }
     }
 
-    note "reverse: check if all \@Symbols and \@Barewords are in keywords.h";
+    diag "reverse: check if all \@Symbols and \@Barewords are in keywords.h";
     my %keyword = map { $_ => 1 } @keywords;
   TODO: {
       for my $key (@Barewords, @Functions) {
         if ($key =~ /^-/) { # skip file test ops
-            note "not in keyword.h: $key";
+            diag "not in keyword.h: $key";
         } else {
             local $TODO = "old blead version, wait for the release" if $Config{usedevel} && !$keyword{$key};
             ok $keyword{$key}, "keyword.h: $key";
@@ -58,13 +64,13 @@ sub _map_control_char {
                        keys %main::;
 
     my %symbols = map { s/^.//; $_ => 1 } (@Scalars, @Arrays, @Hashes);
-    note "check if all single-character \@Scalars, \@Arrays, \@Hashes are as globals in \%main::";
+    diag "check if all single-character \@Scalars, \@Arrays, \@Hashes are as globals in \%main::";
     for my $global (@globals) {
         ok $symbols{$global}, "global: $global";
     }
 
     #my %globals = map { $_ => 1 } @globals;
-    note "the reverse is not true as most globals are auto-created";
+    diag "the reverse is not true as most globals are auto-created";
     #for my $sym (grep { length $_ == 1 } keys %symbols) {
     #   ok $globals{$sym}, "\%main:: $sym";
     #}
@@ -78,7 +84,7 @@ if (0) {
 
     require English;
     English->import;
-    note "check if all multi-character \@Scalars, \@Arrays, \@Hashes are as globals in \%main::";
+    diag "check if all multi-character \@Scalars, \@Arrays, \@Hashes are as globals in \%main::";
     my %symbols = map { s/^[\$\%\@]//; $_ => 1 } (@Scalars, @Arrays, @Hashes);
     for my $sym (grep { length $_ > 1 } keys %symbols) {
         ok $globals{$sym}, "\%main:: $sym";
