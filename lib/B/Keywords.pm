@@ -102,6 +102,8 @@ use vars '@Arrays';
 use vars '@Hashes';
 @Hashes = qw(
     %main
+    %CORE
+    %CORE::GLOBAL::
     %OVERLOAD
     %+ %LAST_MATCH_END
     %- %LAST_MATCH_START
@@ -458,7 +460,6 @@ use vars '@Barewords';
 # Extra barewords not in keywords.h (arguably a core bug)
 use vars '@BarewordsExtra';
 @BarewordsExtra = qw(
-    CORE
     EQ
     GE
     GT
