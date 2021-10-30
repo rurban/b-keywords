@@ -30,25 +30,24 @@ sub _map_control_char {
 
     my %covered = map { $_ => 1 } @Symbols, @Barewords;
     note "check if all keywords.h have \@Symbols or \@Barewords";
-    for my $keyword (@keywords) {
-        if (!$covered{$keyword} && $usedevel) {
-            ok $covered{$keyword}, "TODO keyword: $keyword (old blead version, wait for the release)";
-        } else {
-            ok $covered{$keyword}, "keyword: $keyword";
-        }
+  TODO: {
+      for my $keyword (@keywords) {
+          local $TODO = "old blead version, wait for the release" if $Config{usedevel} && !$covered{$keyword};
+          ok $covered{$keyword}, "keyword: $keyword";
+      }
     }
 
     note "reverse: check if all \@Symbols and \@Barewords are in keywords.h";
     my %keyword = map { $_ => 1 } @keywords;
-    for my $key (@Barewords, @Functions) {
+  TODO: {
+      for my $key (@Barewords, @Functions) {
         if ($key =~ /^-/) { # skip file test ops
             note "not in keyword.h: $key";
-        }
-        elsif (!$keyword{$key} && $usedevel) {
-            ok $keyword{$key}, "TODO keyword.h: $key (old blead version, wait for the release)";
         } else {
+            local $TODO = "old blead version, wait for the release" if $Config{usedevel} && !$keyword{$key};
             ok $keyword{$key}, "keyword.h: $key";
         }
+      }
     }
 }
 
