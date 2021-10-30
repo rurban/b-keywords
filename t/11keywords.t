@@ -30,7 +30,11 @@ sub _map_control_char {
     my %covered = map { $_ => 1 } @Symbols, @Barewords;
 
     for my $keyword (@keywords) {
-        ok $covered{$keyword}, "keyword: $keyword";
+        if (!$covered{$keyword} && $Config{usedevel}) {
+            ok $covered{$keyword}, "TODO keyword: $keyword (old blead version, wait for the release)";
+        } else {
+            ok $covered{$keyword}, "keyword: $keyword";
+        }
     }
 }
 
