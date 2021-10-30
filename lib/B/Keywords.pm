@@ -101,6 +101,7 @@ use vars '@Arrays';
 
 use vars '@Hashes';
 @Hashes = qw(
+    %main
     %OVERLOAD
     %+ %LAST_MATCH_END
     %- %LAST_MATCH_START
@@ -237,7 +238,6 @@ use vars '@Functions';
     hex
     index
     int
-    import
     ioctl ),
   ($] >= 5.031007 ? qw(
     isa
@@ -359,7 +359,6 @@ use vars '@Functions';
     umask
     undef
     unlink
-    unimport
     unpack
     unshift
     untie
@@ -395,13 +394,6 @@ use vars '@Barewords';
     __PACKAGE__
     __DATA__
     __END__
-    CORE
-    EQ
-    GE
-    GT
-    LE
-    LT
-    NE
     NULL
     and ),
   ($CPERL && $] >= 5.027001 ? qw(
@@ -463,6 +455,20 @@ use vars '@Barewords';
   ),
 );
 
+# Extra barewords not in keywords.h (arguably a core bug)
+use vars '@BarewordsExtra';
+@BarewordsExtra = qw(
+    CORE
+    EQ
+    GE
+    GT
+    LE
+    LT
+    NE
+    import
+    unimport
+);
+
 use vars '@TieIOMethods';
 @TieIOMethods = qw(
     BINMODE CLEAR CLEARERR CLONE CLONE_SKIP CLOSE DELETE EOF
@@ -512,14 +518,16 @@ B::Keywords - Lists of reserved barewords and symbol names
 
 C<B::Keywords> supplies several arrays of exportable keywords:
 C<@Scalars>, C<@Arrays>, C<@Hashes>, C<@Filehandles>, C<@Symbols>,
-C<@Functions>, C<@Barewords>, C<@TieIOMethods>, C<@UNIVERSALMethods>
-and C<@ExporterSymbols>.
+C<@Functions>, C<@Barewords>, C<@BarewordsExtra>, C<@TieIOMethods>,
+C<@UNIVERSALMethods> and C<@ExporterSymbols>.
 
 The C<@Symbols> array includes the contents of each
 of C<@Scalars>, C<@Arrays>, C<@Hashes>, C<@Functions> and C<@Filehandles>.
 
 Similarly, C<@Barewords> adds a few non-function keywords and
 operators to the C<@Functions> array.
+
+C<@BarewordsExtra> adds a few barewords which are not in keywords.h.
 
 All additions and modifications are welcome.
 
@@ -555,6 +563,11 @@ handles, and functions.
 
 This is a list of other special keywords in perl including operators
 and all the control structures.
+
+=item C<@BarewordsExtra>
+
+This is a list of barewords which are missing from keywords.h, handled
+extra in the tokenizer.
 
 =item C<@TieIOMethods>
 
@@ -605,6 +618,10 @@ You can also look for information at:
 
 L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=B-Keywords>
 
+=item * GIT repository
+
+L<http://github.com/rurban/b-keywords/>
+
 =item * AnnoCPAN: Annotated CPAN documentation
 
 L<http://annocpan.org/dist/B-Keywords>
@@ -627,7 +644,7 @@ for patches and releases.
 =head1 COPYRIGHT AND LICENSE
 
 Copyright 2009 Joshua ben Jore, All rights reserved.
-Copyright 2013, 2015, 2017-2019 Reini Urban, All rights reserved.
+Copyright 2013, 2015, 2017-2021 Reini Urban, All rights reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of either:
