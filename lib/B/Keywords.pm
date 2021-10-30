@@ -140,10 +140,13 @@ use vars '@Functions';
     # INIT was called RESTART before 5.004_50
   ($] >= 5.006
     ? qw(INIT) : qw(RESTART)),
+   # removed with 855a8c432447
   ($] < 5.007003 ? qw(
     EQ GE GT LE LT NE
-  ) : ()), qw(
+   ) : ()),
+  ($] >= 5.009005 ? qw(
     UNITCHECK
+   ) : ()), qw(
     abs
     accept
     alarm
@@ -339,7 +342,6 @@ use vars '@Functions';
     sqrt
     srand
     stat
-    state
     study
     substr
     symlink
@@ -398,23 +400,28 @@ use vars '@Barewords';
     __END__
     NULL
     and ),
+  #removed with a96df643850d22bc4a94
+  ($] >= 5.000 && $] < 5.019010 ? qw(
+    CORE
+   ) : ()),
   ($CPERL && $] >= 5.027001 ? qw(
     class method role multi has
   ) : ()), qw(
     cmp
     continue
-    default
     do
     else
     elsif
     eq ),
+  # added with dor (c963b151157d), removed with f23102e2d6356
+  # in fact this was never in keywords.h for some reason
   ($] >= 5.008001 && $] < 5.010 ? qw(
     err
-  ) : ()), qw(
+  ) : ()),
+  qw(
     for
     foreach
     ge
-    given
     gt
     if
     le
@@ -440,11 +447,26 @@ use vars '@Barewords';
     tr
     unless
     until
-    when
     while
     x
     xor
     y
+  ),
+  # also with default, say
+  ($] >= 5.009003 ? qw(
+     break
+     given
+     when
+   ) : ()
+  ),
+  # removed as useless with 5.27.7, re-added with 7896dde7482a2851
+  ($] >= 5.009003 && ($] < 5.027007 || $] >= 5.027008) ? qw(
+     default
+   ) : ()
+  ),
+  ($] >= 5.009004 ? qw(
+     state
+   ) : ()
   ),
   ($] >= 5.033007 ? qw(
       try
@@ -457,15 +479,9 @@ use vars '@Barewords';
   ),
 );
 
-# Extra barewords not in keywords.h (arguably a core bug)
+# Extra barewords not in keywords.h (import was never in keywords)
 use vars '@BarewordsExtra';
 @BarewordsExtra = qw(
-    EQ
-    GE
-    GT
-    LE
-    LT
-    NE
     import
     unimport
 );

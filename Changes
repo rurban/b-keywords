@@ -100,5 +100,4 @@ Revision history for Perl extension B::Keywords.
   - add reverse test: if @Barewords are covered on keywords.h
   - move some @Barewords not in keywords.h to @BarewordsExtra
   - add %main, %CORE, %CORE::GLOBAL:: to @Hashes
-  - removed CORE from @Barewords
- 
+  - fixed versions for EQ, CORE, state, break, given, when, default, UNITCHECK
