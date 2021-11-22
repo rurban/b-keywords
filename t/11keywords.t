@@ -28,6 +28,12 @@ sub _map_control_char {
 # Test everything in keywords.h is covered.
 {
     my $keywords = File::Spec->catfile( $Config{archlibexp}, 'CORE', 'keywords.h' );
+    if ($keywords =~ /darwin/) {
+        my $p = '';
+        $p = qx/xcrun --show-sdk-path/;
+        chomp $p;
+        $keywords = File::Spec->catdir($p, $keywords);
+    }
     open FH, "< $keywords\0" or die "Can't open $keywords: $!";
     local $/;
     chomp( my @keywords = <FH> =~ /^\#define \s+ KEY_(\S+) /xmsg );
