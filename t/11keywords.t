@@ -26,19 +26,41 @@ sub _map_control_char {
     return $char;
 }
 
+sub kopen {
+    my @files = ();
+
+    # this is the default location for 'kewords.h', unless we're on macOS
+    push @files, File::Spec->catfile( $Config{archlibexp}, 'CORE', 'keywords.h' );
+
+    # Apple has restructured it's file system, if we're on macOS and the above
+    # doesn't exist, we're probably using system perl. try an alternate location
+    # via Apple's tools
+    if (($files[0] =~ /darwin/) and (! -e $files[0])) {
+	my $p = '';
+	$p = qx/xcrun --show-sdk-path/;
+	chomp $p;
+	push @files, File::Spec->catdir($p, $files[0]);
+    }
+
+    # return the first FH we can open from the list above. 99.44% of
+    # the time it's going to be the first (and correct) one
+    for my $file (@files) {
+	if (open my $fh, "<", $file) {
+	    return $fh;
+	}
+    }
+
+    # if we're here something else happend or apple is up to new tricks
+    die "Can't open any of @files";
+}
+
 # Test everything in keywords.h is covered.
 {
-    my $keywords = File::Spec->catfile( $Config{archlibexp}, 'CORE', 'keywords.h' );
-    if ($keywords =~ /darwin/) {
-        my $p = '';
-        $p = qx/xcrun --show-sdk-path/;
-        chomp $p;
-        $keywords = File::Spec->catdir($p, $keywords);
-    }
-    open FH, "< $keywords\0" or die "Can't open $keywords: $!";
+    # get a filehandle to 'keywords.h'
+    my $fh = kopen();
     local $/;
-    chomp( my @keywords = <FH> =~ /^\#define \s+ KEY_(\S+) /xmsg );
-    close FH;
+    chomp( my @keywords = <$fh> =~ /^\#define \s+ KEY_(\S+) /xmsg );
+    close $fh;
     my $usedevel = $Config{usedevel};
 
     my %covered = map { $_ => 1 } @Symbols, @Barewords;
