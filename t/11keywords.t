@@ -35,7 +35,7 @@ sub kopen {
     # Apple has restructured it's file system, if we're on macOS and the above
     # doesn't exist, we're probably using system perl. try an alternate location
     # via Apple's tools
-    if (($files[0] =~ /darwin/) and (! -e $files[0])) {
+    if ($^O eq "darwin" && $Config{archlibexp} =~ m!^/System/Library/Perl!) {
 	my $p = '';
 	$p = qx/xcrun --show-sdk-path/;
 	chomp $p;
