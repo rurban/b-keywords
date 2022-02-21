@@ -477,6 +477,10 @@ use vars '@Barewords';
       defer
     ) : ()
   ),
+  ($] >= 5.035008 ? qw(
+      finally
+    ) : ()
+  ),
 );
 
 # Extra barewords not in keywords.h (import was never in keywords)
