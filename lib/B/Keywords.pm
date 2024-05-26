@@ -488,6 +488,10 @@ use vars '@Barewords';
      method
     ) : ()
   ),
+  ($] >= 5.039002 ? qw{
+     __CLASS__
+    } : ()
+  ),
 );
 
 # Extra barewords not in keywords.h (import was never in keywords)
