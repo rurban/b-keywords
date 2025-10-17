@@ -30,8 +30,9 @@ use vars '@Scalars';
     qw( $* $MULTILINE_MATCHING) : ()),
     qw( $. $INPUT_LINE_NUMBER $NR
         $/ $INPUT_RECORD_SEPARATOR $RS
-        $| $OUTPUT_AUTOFLUSH ), '$,', qw( $OUTPUT_FIELD_SEPARATOR $OFS
-        $\ $OUTPUT_RECORD_SEPARATOR $ORS
+        $| $OUTPUT_AUTOFLUSH ), '$,', qw( $OUTPUT_FIELD_SEPARATOR $OFS ),
+        '$\\', qw( $OUTPUT_RECORD_SEPARATOR $ORS ),
+    qw(
         $" $LIST_SEPARATOR
         $; $SUBSCRIPT_SEPARATOR $SUBSEP
     ), '$#', qw( $OFMT
